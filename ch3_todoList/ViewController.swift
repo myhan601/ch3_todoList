@@ -11,8 +11,6 @@ struct Todo {
     var id: Int
     var title: String
     var isCompleted: Bool
-    
-    
 }
 
 class ViewController: UIViewController {
@@ -30,7 +28,7 @@ class ViewController: UIViewController {
         myTableView.delegate = self
         myTableView.dataSource = self
     }
-    
+    //MARK: - addTodo
     @IBAction func addTodo(_ sender: Any) {
         //alert 창 요소들
         let title = "할 일 추가"
@@ -65,7 +63,7 @@ class ViewController: UIViewController {
     }
     
 }
-
+//MARK: - extension
 extension Todo {
     static var sampleTodo: [Todo] = [
         Todo(id: 1, title: "title1", isCompleted: false),
@@ -91,6 +89,17 @@ extension ViewController: UITableViewDataSource {
         
         return cell
     }
+    // 셀 삭제하는 부분
+    func tableView(_ tableView: UITableView, editingStyleForFowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
     
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            sampleTodo.remove(at: indexPath.row) // 셀 데이터를 담은 배열을 적어준다.
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
 }

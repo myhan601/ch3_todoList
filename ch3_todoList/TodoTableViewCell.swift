@@ -20,7 +20,6 @@ class TodoTableViewCell: UITableViewCell {
         }
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
